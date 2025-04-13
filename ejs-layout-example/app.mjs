@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import expressLayouts from 'express-ejs-layouts';
 
+
 const app = express();
 const PORT = 3000;
 
@@ -13,20 +14,26 @@ app.set('views', path.resolve('./views'));
 app.use(expressLayouts);
 app.set('layout', 'layout'); //Archivo base de layout
 
-//Servir archivos estaticos
+//Servidor archivos estaticos
 app.use(express.static(path.resolve('./public')));
 
 // Ruta principal
-app.get('/', (req, res) => { 
-    res.render('index', {
-        title: 'Página Principal',
-        navbarLinks: [
-            { text: 'Inicio', href: '/', icon: '/icons/home.svg' },
-            { text: 'Acerca de', href: '/about', icon: '/icons/info.svg'},
-            { text: 'Contacto', href: '/contact', icon: '/icons/contact.svg' }
-        ]
-    });
+app.get('/', (req, res) =>{
+    res.render('index', {title: 'Pagina Principal'});
 });
+
+//Ruta para la pagina Acerca de
+app.get('/about', (req, res) =>{
+    res.render('about', {title: 'Acerca de Nosotros' });
+});
+
+//Ruta para la pagina Contacto
+app.get('/contact', (req, res) =>{
+    res.render('contact', {title: 'Contáctanos' });
+});
+
+
+
 // Iniciar el servidor
 app.listen(PORT, () => {
 });
